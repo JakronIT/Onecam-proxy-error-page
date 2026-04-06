@@ -14,10 +14,9 @@
             --text-solid: #000000;
             --line: #e8e8e8;
             --max-width: 56rem;
-            --content-width: 42rem;
             --logo-width-desktop: 25rem;
             --logo-width-mobile: 92vw;
-            --divider-width-desktop: 28rem;
+            --content-measure: var(--logo-width-desktop);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -75,31 +74,6 @@
             fill: #111111;
         }
 
-        .hero-panel {
-            position: relative;
-            width: min(100%, var(--content-width));
-            display: grid;
-            justify-items: center;
-            gap: 1rem;
-            padding: 1.2rem 1.35rem 1.35rem;
-            border-radius: 1rem;
-            background: transparent;
-        }
-
-        .hero-panel::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: linear-gradient(135deg, #fb3131 0%, #ff134f 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
         .status-code {
             margin: 0;
             font-size: 9rem;
@@ -111,7 +85,7 @@
 
         .status-text {
             margin: 0;
-            width: 100%;
+            width: min(100%, var(--content-measure));
             font-size: 1.9rem;
             line-height: 1.15;
             font-weight: 600;
@@ -119,7 +93,7 @@
         }
 
         .user-message {
-            width: 100%;
+            width: min(100%, var(--content-measure));
         }
 
         .user-message p {
@@ -130,10 +104,22 @@
         }
 
         .technical-details {
-            width: min(100%, var(--content-width));
+            position: relative;
+            width: min(100%, var(--content-measure));
             margin-top: 0.5rem;
-            padding-top: 0;
+            padding-top: 1rem;
             border-top: none;
+        }
+
+        .technical-details::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(100%, var(--content-measure));
+            height: 2px;
+            background: radial-gradient(ellipse at center, #fb3131 0%, #ff134f 68%, rgba(255, 19, 79, 0) 100%);
         }
 
         .technical-details ul {
@@ -170,6 +156,10 @@
         }
 
         @media (max-width: 48rem) {
+            :root {
+                --content-measure: min(var(--logo-width-mobile), 34rem);
+            }
+
             body {
                 padding: 1.25rem;
             }
@@ -183,24 +173,18 @@
                 margin-bottom: 0.25rem;
             }
 
-            .hero-panel {
-                width: min(100%, 36rem);
-                gap: 0.85rem;
-                padding: 1rem 1rem 1.1rem;
-            }
-
             .status-code {
                 font-size: clamp(5.5rem, 26vw, 8rem);
                 letter-spacing: -0.035em;
             }
 
             .status-text {
-                width: 100%;
+                width: min(100%, var(--content-measure));
                 font-size: clamp(1.35rem, 5.2vw, 1.8rem);
             }
 
             .user-message {
-                width: 100%;
+                width: min(100%, var(--content-measure));
             }
 
             .user-message p {
@@ -209,9 +193,9 @@
             }
 
             .technical-details {
-                width: min(100%, 34rem);
+                width: min(100%, var(--content-measure));
                 text-align: center;
-                padding-top: 0;
+                padding-top: 0.85rem;
             }
 
             .technical-details li {
@@ -260,25 +244,23 @@
             </defs>
         </svg>
 
-        <section class="hero-panel" aria-label="Error summary">
-            <h1 class="status-code">{{placeholder "http.error.status_code"}}</h1>
-            
-            <h2 class="status-text">{{placeholder "http.error.status_text"}}</h2>
+        <h1 class="status-code">{{placeholder "http.error.status_code"}}</h1>
+        
+        <h2 class="status-text">{{placeholder "http.error.status_text"}}</h2>
 
-            <div class="user-message">
-                {{if eq (placeholder "http.error.status_code") "404"}}
-                    <p>The requested service does not exist.</p>
-                {{else if eq (placeholder "http.error.status_code") "502"}}
-                    <p>The backend service is currently unreachable. Try again later.</p>
-                {{else if eq (placeholder "http.error.status_code") "401"}}
-                    <p>Authentication is required to access this service. Try to refresh the page.</p>
-                {{else if eq (placeholder "http.error.status_code") "403"}}
-                    <p>You do not have permission to view this directory or page.</p>
-                {{else}}
-                    <p>An unexpected server error occurred.</p>
-                {{end}}
-            </div>
-        </section>
+        <div class="user-message">
+            {{if eq (placeholder "http.error.status_code") "404"}}
+                <p>The requested service does not exist.</p>
+            {{else if eq (placeholder "http.error.status_code") "502"}}
+                <p>The backend service is currently unreachable. Try again later.</p>
+            {{else if eq (placeholder "http.error.status_code") "401"}}
+                <p>Authentication is required to access this service. Try to refresh the page.</p>
+            {{else if eq (placeholder "http.error.status_code") "403"}}
+                <p>You do not have permission to view this directory or page.</p>
+            {{else}}
+                <p>An unexpected server error occurred.</p>
+            {{end}}
+        </div>
 
         <div class="technical-details">
             <ul>
