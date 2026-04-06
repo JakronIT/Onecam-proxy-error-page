@@ -205,11 +205,11 @@
 
         <div class="user-message">
             {{if eq (placeholder "err.status_code") "404"}}
-                <p>The requested service or subdomain does not exist on this network.</p>
+                <p>The requested service does not exist.</p>
             {{else if eq (placeholder "err.status_code") "502"}}
-                <p>The backend service is currently down, restarting, or unreachable.</p>
+                <p>The backend service is currently unreachable. Try again later.</p>
             {{else if eq (placeholder "err.status_code") "401"}}
-                <p>Authentication is required to access this service.</p>
+                <p>Authentication is required to access this service. Try to refresh the page.</p>
             {{else if eq (placeholder "err.status_code") "403"}}
                 <p>You do not have permission to view this directory or page.</p>
             {{else}}
