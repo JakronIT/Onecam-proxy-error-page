@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error {{placeholder "err.status_code"}} | {{placeholder "http.request.host"}}</title>
+    <title>Error {{placeholder "http.error.status_code"}} | {{placeholder "http.request.host"}}</title>
     <style>
         :root {
             color-scheme: light dark;
@@ -199,18 +199,18 @@
             </defs>
         </svg>
 
-        <h1 class="status-code">{{placeholder "err.status_code"}}</h1>
+        <h1 class="status-code">{{placeholder "http.error.status_code"}}</h1>
         
-        <h2 class="status-text">{{placeholder "err.status_text"}}</h2>
+        <h2 class="status-text">{{placeholder "http.error.status_text"}}</h2>
 
         <div class="user-message">
-            {{if eq (placeholder "err.status_code") "404"}}
+            {{if eq (placeholder "http.error.status_code") "404"}}
                 <p>The requested service does not exist.</p>
-            {{else if eq (placeholder "err.status_code") "502"}}
+            {{else if eq (placeholder "http.error.status_code") "502"}}
                 <p>The backend service is currently unreachable. Try again later.</p>
-            {{else if eq (placeholder "err.status_code") "401"}}
+            {{else if eq (placeholder "http.error.status_code") "401"}}
                 <p>Authentication is required to access this service. Try to refresh the page.</p>
-            {{else if eq (placeholder "err.status_code") "403"}}
+            {{else if eq (placeholder "http.error.status_code") "403"}}
                 <p>You do not have permission to view this directory or page.</p>
             {{else}}
                 <p>An unexpected server error occurred.</p>
