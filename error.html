@@ -16,6 +16,7 @@
             --content-width: 42rem;
             --logo-width-desktop: 20rem;
             --logo-width-mobile: 92vw;
+            --divider-width-desktop: 28rem;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -115,7 +116,7 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
+            width: min(100%, var(--divider-width-desktop));
             height: 2px;
             background: radial-gradient(ellipse at center, #fb3131 0%, #ff134f 68%, rgba(255, 19, 79, 0) 100%);
         }
@@ -190,6 +191,10 @@
                 width: min(100%, 34rem);
                 text-align: center;
                 padding-top: 0.85rem;
+            }
+
+            .technical-details::before {
+                width: 100%;
             }
 
             .technical-details li {
