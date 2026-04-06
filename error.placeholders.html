@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error 502 | onecamproxy.local</title>
+    <title>Error {{placeholder "err.status_code"}} | {{placeholder "http.request.host"}}</title>
     <style>
         :root {
             color-scheme: light dark;
@@ -140,6 +140,10 @@
             .status-code {
                 letter-spacing: -0.035em;
             }
+
+            .technical-details {
+                text-align: left;
+            }
         }
 
         @keyframes fade-up {
@@ -183,18 +187,28 @@
             </defs>
         </svg>
 
-        <h1 class="status-code">502</h1>
+        <h1 class="status-code">{{placeholder "err.status_code"}}</h1>
         
-        <h2 class="status-text">Bad Gateway</h2>
+        <h2 class="status-text">{{placeholder "err.status_text"}}</h2>
 
         <div class="user-message">
-            <p>The backend service is currently down, restarting, or unreachable.</p>
+            {{if eq (placeholder "err.status_code") "404"}}
+                <p>The requested service or subdomain does not exist on this network.</p>
+            {{else if eq (placeholder "err.status_code") "502"}}
+                <p>The backend service is currently down, restarting, or unreachable.</p>
+            {{else if eq (placeholder "err.status_code") "401"}}
+                <p>Authentication is required to access this service.</p>
+            {{else if eq (placeholder "err.status_code") "403"}}
+                <p>You do not have permission to view this directory or page.</p>
+            {{else}}
+                <p>An unexpected server error occurred.</p>
+            {{end}}
         </div>
 
         <div class="technical-details">
             <ul>
-                <li><strong>Service:</strong> <span class="host">camera-gateway.onecamproxy.local</span></li>
-                <li><strong>Trace ID:</strong> <span class="uuid">3f2a6b91-6a27-4d45-b6a4-6f99d26410d3</span></li>
+                <li><strong>Service:</strong> <span class="host">{{placeholder "http.request.host"}}</span></li>
+                <li><strong>Trace ID:</strong> <span class="uuid">{{placeholder "http.request.uuid"}}</span></li>
             </ul>
         </div>
     </main>
