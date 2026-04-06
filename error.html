@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error {{placeholder "err.status_code"}} | {{placeholder "http.request.host"}}</title>
+    <style>
+        /* CSS GOES HERE. Reset defaults and apply styling. */
+    </style>
+</head>
+<body>
+    <main class="error-container">
+        <h1 class="status-code">{{placeholder "err.status_code"}}</h1>
+        
+        <h2 class="status-text">{{placeholder "err.status_text"}}</h2>
+
+        <div class="user-message">
+            {{if eq (placeholder "err.status_code") "404"}}
+                <p>The requested service or subdomain does not exist on this network.</p>
+            {{else if eq (placeholder "err.status_code") "502"}}
+                <p>The backend service is currently down, restarting, or unreachable.</p>
+            {{else if eq (placeholder "err.status_code") "401"}}
+                <p>Authentication is required to access this service.</p>
+            {{else if eq (placeholder "err.status_code") "403"}}
+                <p>You do not have permission to view this directory or page.</p>
+            {{else}}
+                <p>An unexpected server error occurred.</p>
+            {{end}}
+        </div>
+
+        <div class="technical-details">
+            <ul>
+                <li><strong>Service:</strong> <span class="host">{{placeholder "http.request.host"}}</span></li>
+                <li><strong>Trace ID:</strong> <span class="uuid">{{placeholder "http.request.uuid"}}</span></li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
