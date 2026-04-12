@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error {{placeholder "http.error.status_code"}} | {{placeholder "http.request.host"}}</title>
+    <link rel="icon" href="/favicon.ico" sizes="any">
     <style>
         :root {
             color-scheme: light dark;
@@ -11,8 +12,12 @@
             --text-primary: #111111;
             --text-secondary: #666666;
             --text-muted: #71717a;
+            --text-solid: #000000;
             --line: #e8e8e8;
             --max-width: 56rem;
+            --logo-width-desktop: 25rem;
+            --logo-width-mobile: 92vw;
+            --content-measure: var(--logo-width-desktop);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -21,6 +26,7 @@
                 --text-primary: #f9fafb;
                 --text-secondary: #a1a1aa;
                 --text-muted: #9ca3af;
+                --text-solid: #ffffff;
                 --line: #1f1f1f;
             }
         }
@@ -54,14 +60,15 @@
             display: grid;
             justify-items: center;
             text-align: center;
-            gap: clamp(0.75rem, 1.8vw, 1.25rem);
+            gap: 1rem;
             animation: fade-up 500ms ease-out both;
         }
 
         .brand-mark {
-            width: clamp(11rem, 34vw, 24rem);
+            width: var(--logo-width-desktop);
+            max-width: 100%;
             height: auto;
-            margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+            margin-bottom: 0.5rem;
         }
 
         .brand-mark #t {
@@ -70,7 +77,7 @@
 
         .status-code {
             margin: 0;
-            font-size: clamp(5rem, 20vw, 12rem);
+            font-size: 9rem;
             line-height: 0.9;
             letter-spacing: -0.05em;
             font-weight: 800;
@@ -79,28 +86,29 @@
 
         .status-text {
             margin: 0;
-            font-size: clamp(1.25rem, 3.8vw, 2rem);
+            width: min(100%, var(--content-measure));
+            font-size: 1.9rem;
             line-height: 1.15;
             font-weight: 600;
             color: var(--text-primary);
         }
 
         .user-message {
-            max-width: 48ch;
+            width: min(100%, var(--content-measure));
         }
 
         .user-message p {
             margin: 0;
-            font-size: clamp(0.98rem, 2.2vw, 1.1rem);
+            font-size: 1.16rem;
             line-height: 1.65;
-            color: var(--text-secondary);
+            color: var(--text-solid);
         }
 
         .technical-details {
             position: relative;
-            width: min(100%, 40rem);
-            margin-top: clamp(0.25rem, 1.4vw, 0.75rem);
-            padding-top: clamp(0.85rem, 1.8vw, 1.1rem);
+            width: min(100%, var(--content-measure));
+            margin-top: 0.5rem;
+            padding-top: 1rem;
             border-top: none;
         }
 
@@ -110,7 +118,7 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: min(100%, calc(clamp(11rem, 34vw, 24rem) * 1.2));
+            width: min(100%, var(--content-measure));
             height: 2px;
             background: radial-gradient(ellipse at center, #ff134f 0%, #fb3131 68%, rgba(255, 19, 79, 0) 100%);
         }
@@ -125,7 +133,7 @@
 
         .technical-details li {
             margin: 0;
-            font-size: clamp(0.84rem, 1.8vw, 0.95rem);
+            font-size: 0.94rem;
             line-height: 1.5;
             color: var(--text-muted);
             word-break: break-word;
@@ -162,13 +170,52 @@
             }
         }
 
-        @media (max-width: 30rem) {
+        @media (max-width: 48rem) {
+            :root {
+                --content-measure: min(var(--logo-width-mobile), 34rem);
+            }
+
+            body {
+                place-items: start center;
+                padding: 2rem 1.25rem 1.25rem;
+            }
+
+            .error-container {
+                gap: 0.85rem;
+            }
+
+            .brand-mark {
+                width: min(var(--logo-width-mobile), 34rem);
+                margin-bottom: 0.25rem;
+            }
+
             .status-code {
+                font-size: clamp(5.5rem, 26vw, 8rem);
                 letter-spacing: -0.035em;
             }
 
+            .status-text {
+                width: min(100%, var(--content-measure));
+                font-size: clamp(1.35rem, 5.2vw, 1.8rem);
+            }
+
+            .user-message {
+                width: min(100%, var(--content-measure));
+            }
+
+            .user-message p {
+                font-size: 1.1rem;
+                line-height: 1.55;
+            }
+
             .technical-details {
-                text-align: left;
+                width: min(100%, var(--content-measure));
+                text-align: center;
+                padding-top: 0.85rem;
+            }
+
+            .technical-details li {
+                font-size: 0.9rem;
             }
         }
 
