@@ -112,7 +112,7 @@
             transform: translateX(-50%);
             width: min(100%, calc(clamp(11rem, 34vw, 24rem) * 1.2));
             height: 2px;
-            background: radial-gradient(ellipse at center, #fb3131 0%, #ff134f 68%, rgba(255, 19, 79, 0) 100%);
+            background: radial-gradient(ellipse at center, #ff134f 0%, #fb3131 68%, rgba(255, 19, 79, 0) 100%);
         }
 
         .technical-details ul {
@@ -129,6 +129,20 @@
             line-height: 1.5;
             color: var(--text-muted);
             word-break: break-word;
+        }
+
+        .monitor-note {
+            margin: 0 0 0.45rem;
+            font-size: clamp(0.84rem, 1.8vw, 0.95rem);
+            line-height: 1.5;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .monitor-note a {
+            color: #FF2A41;
+            text-decoration: underline;
+            text-underline-offset: 0.12em;
         }
 
         .technical-details strong {
@@ -218,6 +232,7 @@
         </div>
 
         <div class="technical-details">
+            <p class="monitor-note">View the <a href="https://uptimekuma.lan.onecam.pl/status/services" target="_blank" rel="noopener noreferrer">status monitor</a> for all services.</p>
             <ul>
                 <li><strong>Service:</strong> <span class="host">{{placeholder "http.request.host"}}</span></li>
                 <li><strong>Trace ID:</strong> <span class="uuid">{{placeholder "http.request.uuid"}}</span></li>
